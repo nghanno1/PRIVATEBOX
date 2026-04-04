@@ -104,7 +104,7 @@ function renderProducts() {
   const grid = document.getElementById('product-grid');
   grid.innerHTML = products.map(product => `
     <div class="product-card">
-      <div class="product-image">📦</div>
+      <div class="product-image"><img src="assets/images/products/product-${String(product.id).padStart(3, '0')}.jpg" alt="${product.name}"></div>
       <h3>${product.name}</h3>
       <p class="product-price">${product.price.toLocaleString()}₫</p>
       <button class="btn-add-to-cart" onclick="window.addToCart(${product.id})">
