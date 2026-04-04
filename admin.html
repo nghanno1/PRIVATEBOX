@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivateBox - Admin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ========== NAVBAR ========== -->
+  <nav>
+    <div class="navbar-container">
+      <a href="index.html" class="logo">📦 PrivateBox Admin</a>
+      <div class="nav-buttons">
+        <button onclick="location.href='index.html'" class="nav-btn">
+          ← Quay Lại Cửa Hàng
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== ADMIN CONTENT ========== -->
+  <main class="admin-container" style="max-width: 1400px; margin: 0 auto; padding: 2rem;">
+    
+    <!-- ========== ADMIN HEADER ========== -->
+    <div class="admin-header">
+      <h1>📊 Bảng Điều Khiển Admin</h1>
+      <p>Quản lý đơn hàng & doanh thu PrivateBox</p>
+    </div>
+
+    <!-- ========== STATISTICS ========== -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>💰 Tổng Doanh Thu</h3>
+        <div class="stat-value" id="total-revenue">0₫</div>
+      </div>
+      <div class="stat-card">
+        <h3>📦 Tổng Đơn Hàng</h3>
+        <div class="stat-value" id="order-count">0</div>
+      </div>
+    </div>
+
+    <!-- ========== ADMIN CONTROLS ========== -->
+    <div class="admin-controls">
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterOrders('all')">
+          ✓ Tất Cả Đơn
+        </button>
+        <button class="filter-btn" onclick="filterOrders('normal')">
+          🛍️ Mua Ngay
+        </button>
+        <button class="filter-btn" onclick="filterOrders('secure')">
+          🔒 Mua Bảo Mật
+        </button>
+      </div>
+      <button class="btn-primary" onclick="exportOrders()">
+        ⬇️ Xuất CSV
+      </button>
+    </div>
+
+    <!-- ========== ORDERS DISPLAY ========== -->
+    <div id="orders-container">
+      <div class="empty-orders">
+        <p>📭 Đang tải đơn hàng...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
