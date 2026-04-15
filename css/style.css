@@ -6,17 +6,20 @@
 }
 
 :root {
-  --primary-color: #FF9500;
-  --primary-dark: #E68A00;
-  --secondary-color: #00A8E8;
+  --primary-color: #f8c8dc;       /* hồng pastel chính */
+  --secondary-color: #fce4ec;     /* nền hồng rất nhạt */
+  --accent-color: #f48fb1;        /* hồng đậm nhẹ để nhấn */
+  --text-color: #4a4a4a;
+  --white: #ffffff;
+  --primary-dark: #f48fb1;
   --success-color: #00C853;
   --danger-color: #FF3B30;
-  --text-dark: #1A1A1A;
+  --text-dark: #4a4a4a;
   --text-light: #666666;
   --border-light: #E8E8E8;
-  --bg-light: #FAFAFA;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --bg-light: #fce4ec;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
 }
 
@@ -27,8 +30,8 @@ html {
 
 body {
   font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: var(--text-dark);
-  background-color: #FFFFFF;
+  color: var(--text-color);
+  background-color: var(--secondary-color);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -38,7 +41,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: white;
+  background: var(--primary-color);
   border-bottom: 1px solid var(--border-light);
   box-shadow: var(--shadow);
   padding: 1rem 2rem;
@@ -55,7 +58,7 @@ nav {
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--white);
   text-decoration: none;
   letter-spacing: -0.5px;
 }
@@ -71,20 +74,20 @@ nav {
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  color: var(--text-dark);
+  color: var(--text-color);
   transition: var(--transition);
   padding: 0.5rem 1rem;
   border-radius: 6px;
 }
 
 .nav-btn:hover {
-  background: var(--bg-light);
-  color: var(--primary-color);
+  background: var(--secondary-color);
+  color: var(--accent-color);
 }
 
 .nav-btn.active {
-  background: var(--primary-color);
-  color: white;
+  background: var(--white);
+  color: var(--accent-color);
 }
 
 .cart-btn-wrapper {
@@ -95,7 +98,7 @@ nav {
   position: absolute;
   top: -8px;
   right: -8px;
-  background: var(--danger-color);
+  background: var(--accent-color);
   color: white;
   border-radius: 50%;
   width: 20px;
