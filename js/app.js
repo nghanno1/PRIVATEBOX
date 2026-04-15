@@ -22,6 +22,7 @@ const products = [
   { id: 16, name: "Nước ngọt lon (Coca/Pepsi)", price: 15000 },
   { id: 17, name: "Trà đóng chai C2", price: 10000 },
   { id: 18, name: "Cà phê lon", price: 20000 }
+  { id: 19, name: "Bao cao su nam", price: 20000 }
 ];
 
 // ========== STATE QUẢN LÝ ==========
