@@ -106,7 +106,7 @@ function renderProducts() {
   const grid = document.getElementById('product-grid');
   const stock = quantities[product.id]?.quantity || 0;
   grid.innerHTML = products.map(product => `
-    <div class="product-card">
+    <div class="product-card ${stock === 0 ? 'out-of-stock' : ''}">
       <div class="product-image"><img src="assets/images/products/product-${String(product.id).padStart(3, '0')}.jpg" alt="${product.name}"></div>
       <h3>${product.name}</h3>
       <p class="product-price">${product.price.toLocaleString()}₫</p>
