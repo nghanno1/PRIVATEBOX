@@ -344,7 +344,7 @@ window.createOrder = async function(type, address = null) {
     })),
     total: total,
     type: type,
-    timestamp: new Date().toLocaleString('vi-VN'),
+    timestamp: Date.now(),
     status: 'pending'
   };
   
