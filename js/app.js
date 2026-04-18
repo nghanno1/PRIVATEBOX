@@ -30,6 +30,7 @@ let cartNormal = []; // Giỏ hàng Mua Ngay: [{id, name, price, quantity}]
 let cartSecure = []; // Giỏ hàng Mua Bảo Mật: [{id, name, price, quantity}]
 let currentPurchaseType = null; // 'normal' hoặc 'secure'
 let currentPage = 'home'; // home, products, cart, checkout
+let quantities = {};
 
 // Function để lấy giỏ hàng hiện tại
 function getCurrentCart() {
@@ -103,12 +104,16 @@ function showProducts() {
 // ========== HIỂN THỊ SẢN PHẨM ==========
 function renderProducts() {
   const grid = document.getElementById('product-grid');
+  const stock = quantities[product.id]?.quantity || 0;
   grid.innerHTML = products.map(product => `
     <div class="product-card">
       <div class="product-image"><img src="assets/images/products/product-${String(product.id).padStart(3, '0')}.jpg" alt="${product.name}"></div>
       <h3>${product.name}</h3>
       <p class="product-price">${product.price.toLocaleString()}₫</p>
-      <button class="btn-add-to-cart" onclick="window.addToCart(${product.id})">
+      <p class="product-stock">
+        ${stock > 0 ? `Còn: ${stock}` : 'Hết hàng'}
+      </p>
+      <button  class="btn-add-to-cart"  ${stock === 0 ? 'disabled' : ''}  onclick="window.addToCart(${product.id})">
         + Thêm vào giỏ
       </button>
     </div>
@@ -120,7 +125,11 @@ window.addToCart = function(productId) {
   const product = products.find(p => p.id === productId);
   const cart = getCurrentCart();
   const existingItem = cart.find(item => item.id === productId);
-  
+  const stock = quantities[productId]?.quantity || 0;
+  if (stock <= 0) {
+    showNotification('❌ Sản phẩm đã hết hàng!');
+    return;
+  }
   if (existingItem) {
     existingItem.quantity++;
   } else {
@@ -417,9 +426,18 @@ window.updateCartUI = updateCartUI;
 cartBtn.addEventListener('click', showCart);
 homeBtn.addEventListener('click', showHome);
 
+// ========== LOAD SỐ LƯỢNG HÀNG ==========
+function listenToQuantities() {
+  const quantitiesRef = ref(database, 'quantities');
+  onValue(quantitiesRef, (snapshot) => {
+    quantities = snapshot.val() || {};
+    renderProducts(); // 🔥 reload lại sản phẩm khi có thay đổi
+  });
+}
 // ========== KHỞI TẠO ==========
 showHome();
 updateCartUI();
+listenToQuantities();
 
 // Log để debug
 console.log('✅ PrivateBox User App loaded');
