@@ -24,7 +24,12 @@ function listenToOrders() {
     
     // Sắp xếp đơn hàng mới nhất lên trên
     orders.sort((a, b) => {
-      return parseVNDate(a.timestamp) - parseVNDate(b.timestamp);
+      const parse = (str) => {
+        const [date, time] = str.split(', ');
+        const [day, month, year] = date.split('/');
+        return new Date(`${year}-${month}-${day} ${time}`).getTime();
+      };
+      return parse(b.timestamp) - parse(a.timestamp);
     });
     
     renderOrders();
