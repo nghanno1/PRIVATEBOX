@@ -23,18 +23,7 @@ function listenToOrders() {
     });
     
     // Sắp xếp đơn hàng mới nhất lên trên
-    orders.sort((a, b) => {
-      const parse = (str) => {
-        if (!str) return 0;
-    
-        const [time, date] = str.split(' ');
-        const [hour, minute, second] = time.split(':').map(Number);
-        const [day, month, year] = date.split('/').map(Number);
-    
-        return new Date(year, month - 1, day, hour, minute, second).getTime();
-      };
-      return parse(a.timestamp) - parse(b.timestamp);
-    });
+    orders.sort((a, b) => parseVN(b.timestamp) - parseVN(a.timestamp));
     
     renderOrders();
     updateStats();
@@ -44,11 +33,12 @@ function listenToOrders() {
 }
 
 // ========== HIỂN THỊ DANH SÁCH ĐƠN HÀNG ==========
-function parseVNDate(str) {
+function parseVN(str) {
   if (!str) return 0;
-  const [date, time] = str.split(', ');
-  const [day, month, year] = date.split('/');
-  return new Date(`${year}-${month}-${day} ${time}`).getTime();
+  const parts = str.match(/\d+/g); // lấy toàn bộ số
+  if (!parts || parts.length < 6) return 0;
+  const [hour, minute, second, day, month, year] = parts.map(Number);
+  return new Date(year, month - 1, day, hour, minute, second).getTime();
 }
 
 function renderOrders() {
