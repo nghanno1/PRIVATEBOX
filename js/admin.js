@@ -1,6 +1,6 @@
 // PrivateBox - Admin Dashboard
 import { database } from './firebase.js';
-import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
+import { ref, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
 
 // ========== STATE ==========
 let orders = [];
@@ -170,7 +170,13 @@ function showDashboardStats() {
 window.exportOrders = exportOrders;
 window.filterOrders = filterOrders;
 window.listenToOrders = listenToOrders;
+window.toggleComplete = function(orderId, isCompleted) {
+  const orderRef = ref(database, 'orders/' + orderId);
 
+  update(orderRef, {
+    status: isCompleted ? 'completed' : 'pending'
+  });
+};
 // ========== KHỞI TẠO ==========
 document.addEventListener('DOMContentLoaded', () => {
   listenToOrders();
