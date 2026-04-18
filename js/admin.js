@@ -24,9 +24,7 @@ function listenToOrders() {
     
     // Sắp xếp đơn hàng mới nhất lên trên
     orders.sort((a, b) => {
-      const timeA = new Date(a.timestamp).getTime();
-      const timeB = new Date(b.timestamp).getTime();
-      return timeB - timeA;
+      return parseVNDate(b.timestamp) - parseVNDate(a.timestamp);
     });
     
     renderOrders();
