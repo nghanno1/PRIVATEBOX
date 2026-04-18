@@ -25,9 +25,13 @@ function listenToOrders() {
     // Sắp xếp đơn hàng mới nhất lên trên
     orders.sort((a, b) => {
       const parse = (str) => {
-        const [date, time] = str.split(', ');
-        const [day, month, year] = date.split('/');
-        return new Date(`${year}-${month}-${day} ${time}`).getTime();
+        if (!str) return 0;
+    
+        const [time, date] = str.split(' ');
+        const [hour, minute, second] = time.split(':').map(Number);
+        const [day, month, year] = date.split('/').map(Number);
+    
+        return new Date(year, month - 1, day, hour, minute, second).getTime();
       };
       return parse(b.timestamp) - parse(a.timestamp);
     });
