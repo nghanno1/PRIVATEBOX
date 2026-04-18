@@ -248,6 +248,18 @@ nav {
   margin-bottom: 1rem;
 }
 
+.product-card.out-of-stock {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
+
+.product-stock {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
 .btn-add-to-cart {
   background: var(--primary-color);
   color: #1a1a1a;
