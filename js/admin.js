@@ -56,6 +56,9 @@ function renderOrders() {
             ${order.type === 'secure' ? '🔒 Bảo Mật' : '🛍️ Thường'}
           </span>
         </div>
+        <div class="order-time">
+          <p>${new Date(order.timestamp).toLocaleString('vi-VN')}</p>
+        </div>
         <div>
           <label>
             <input type="checkbox" 
