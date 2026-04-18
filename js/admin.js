@@ -33,7 +33,7 @@ function listenToOrders() {
     
         return new Date(year, month - 1, day, hour, minute, second).getTime();
       };
-      return parse(b.timestamp) - parse(a.timestamp);
+      return parse(a.timestamp) - parse(b.timestamp);
     });
     
     renderOrders();
