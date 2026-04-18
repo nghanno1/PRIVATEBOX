@@ -37,6 +37,13 @@ function listenToOrders() {
 }
 
 // ========== HIỂN THỊ DANH SÁCH ĐƠN HÀNG ==========
+function parseVNDate(str) {
+  if (!str) return 0;
+  const [date, time] = str.split(', ');
+  const [day, month, year] = date.split('/');
+  return new Date(`${year}-${month}-${day} ${time}`).getTime();
+}
+
 function renderOrders() {
   if (orders.length === 0) {
     ordersContainer.innerHTML = `
