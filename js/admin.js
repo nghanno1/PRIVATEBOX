@@ -48,7 +48,7 @@ function renderOrders() {
   }
   
   ordersContainer.innerHTML = orders.map((order, index) => `
-    <div class="order-card">
+    <div class="order-card ${order.status === 'completed' ? 'completed' : ''}">
       <div class="order-header">
         <div class="order-id">
           <h3>${order.id}</h3>
@@ -56,8 +56,13 @@ function renderOrders() {
             ${order.type === 'secure' ? '🔒 Bảo Mật' : '🛍️ Thường'}
           </span>
         </div>
-        <div class="order-time">
-          <p>${order.timestamp}</p>
+        <div>
+          <label>
+            <input type="checkbox" 
+              ${order.status === 'completed' ? 'checked' : ''} 
+              onchange="toggleComplete('${order.id}', this.checked)">
+            ✓ Complete
+          </label>
         </div>
       </div>
       
