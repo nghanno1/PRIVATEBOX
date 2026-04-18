@@ -729,6 +729,15 @@ nav {
   transform: translateY(-2px);
 }
 
+.order-card.completed {
+  background: #f0f0f0;
+  opacity: 0.7;
+}
+
+.order-card.completed .order-header {
+  background: #e0e0e0;
+}
+
 .order-header {
   background: var(--bg-light);
   padding: 1rem;
