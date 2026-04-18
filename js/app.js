@@ -121,6 +121,7 @@ function showProducts() {
 }*/
 function renderProducts() {
   const grid = document.getElementById('product-grid');
+  if (!grid) return; // 🔥 THÊM DÒNG NÀY
   grid.innerHTML = products.map(product => {
     const stock = quantities[product.id]?.quantity || 0;
     return `
@@ -245,17 +246,6 @@ function renderCartItems() {
 }
 
 // ========== THAY ĐỔI SỐ LƯỢNG ==========
-/*window.changeQuantity = function(index, change) {
-  const cart = getCurrentCart();
-  cart[index].quantity += change;
-  if (cart[index].quantity <= 0) {
-    window.removeFromCart(index);
-  } else {
-    setCurrentCart(cart);
-    showCart();
-    updateCartUI();
-  }
-};*/
 window.changeQuantity = function(index, change) {
   const cart = getCurrentCart();
   const item = cart[index];
@@ -491,6 +481,8 @@ window.showHome = showHome;
 window.showProducts = showProducts;
 window.showCart = showCart;
 window.updateCartUI = updateCartUI;
+window.createOrder = async function(type, address) {
+  console.log("🔥 createOrder chạy", type, address);
 
 // ========== EVENT LISTENERS ==========
 cartBtn.addEventListener('click', showCart);
