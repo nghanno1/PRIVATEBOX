@@ -425,6 +425,17 @@ window.createOrder = async function(type, address = null) {
     const ordersRef = ref(database, 'orders/' + orderId);
     await set(ordersRef, orderData);
     
+    // 🔥 TRỪ STOCK
+    for (const item of cart) {
+      const stock = quantities[item.id]?.quantity || 0;
+    
+      const quantityRef = ref(database, 'quantities/' + item.id);
+    
+      await update(quantityRef, {
+        quantity: stock - item.quantity
+      });
+    }
+    
     // Hiển thị popup thành công
     showSuccessPopup(orderId, type);
     
