@@ -1,6 +1,6 @@
 // PrivateBox - User App
 import { database } from './firebase.js';
-import { ref, set, push, remove, onValue } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
+import { ref, set, push, remove, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
 
 // ========== DỮ LIỆU SẢN PHẨM ==========
 const products = [
