@@ -80,7 +80,7 @@ function renderOrders() {
             ${order.items.map(item => `
               <li>
                 <span>${item.name}</span>
-                <span>x${item.quantity}</span>
+                <span>x${item.quantity}  </span>
                 <span>${(item.price * item.quantity).toLocaleString()}₫</span>
               </li>
             `).join('')}
