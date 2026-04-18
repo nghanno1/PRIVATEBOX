@@ -102,7 +102,7 @@ function showProducts() {
 }
 
 // ========== HIỂN THỊ SẢN PHẨM ==========
-function renderProducts() {
+/*function renderProducts() {
   const grid = document.getElementById('product-grid');
   const stock = quantities[product.id]?.quantity || 0;
   grid.innerHTML = products.map(product => `
@@ -118,6 +118,30 @@ function renderProducts() {
       </button>
     </div>
   `).join('');
+}*/
+function renderProducts() {
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = products.map(product => {
+    const stock = quantities[product.id]?.quantity || 0;
+    return `
+      <div class="product-card ${stock === 0 ? 'out-of-stock' : ''}">
+        <div class="product-image">
+          <img src="assets/images/products/product-${String(product.id).padStart(3, '0')}.jpg" alt="${product.name}">
+        </div>
+        <h3>${product.name}</h3>
+        <p class="product-price">${product.price.toLocaleString()}₫</p>
+        <p class="product-stock">
+          ${stock > 0 ? `Còn: ${stock}` : 'Hết hàng'}
+        </p>
+        <button 
+          class="btn-add-to-cart"
+          ${stock === 0 ? 'disabled' : ''}
+          onclick="window.addToCart(${product.id})">
+          + Thêm vào giỏ
+        </button>
+      </div>
+    `;
+  }).join('');
 }
 
 // ========== THÊM VÀO GIỎ HÀNG ==========
