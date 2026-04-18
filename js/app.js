@@ -481,8 +481,6 @@ window.showHome = showHome;
 window.showProducts = showProducts;
 window.showCart = showCart;
 window.updateCartUI = updateCartUI;
-window.createOrder = async function(type, address) {
-  console.log("🔥 createOrder chạy", type, address);
 
 // ========== EVENT LISTENERS ==========
 cartBtn.addEventListener('click', showCart);
