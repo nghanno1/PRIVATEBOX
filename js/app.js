@@ -150,10 +150,14 @@ window.addToCart = function(productId) {
   const cart = getCurrentCart();
   const existingItem = cart.find(item => item.id === productId);
   const stock = quantities[productId]?.quantity || 0;
-  if (stock <= 0) {
-    showNotification('❌ Sản phẩm đã hết hàng!');
+  const currentInCart = existingItem ? existingItem.quantity : 0;
+
+  // ❗ check tổng số trong giỏ
+  if (currentInCart + 1 > stock) {
+    showNotification('❌ Không đủ hàng!');
     return;
   }
+
   if (existingItem) {
     existingItem.quantity++;
   } else {
@@ -241,10 +245,31 @@ function renderCartItems() {
 }
 
 // ========== THAY ĐỔI SỐ LƯỢNG ==========
-window.changeQuantity = function(index, change) {
+/*window.changeQuantity = function(index, change) {
   const cart = getCurrentCart();
   cart[index].quantity += change;
   if (cart[index].quantity <= 0) {
+    window.removeFromCart(index);
+  } else {
+    setCurrentCart(cart);
+    showCart();
+    updateCartUI();
+  }
+};*/
+window.changeQuantity = function(index, change) {
+  const cart = getCurrentCart();
+  const item = cart[index];
+  const stock = quantities[item.id]?.quantity || 0;
+
+  // 👉 nếu tăng số lượng
+  if (change > 0) {
+    if (item.quantity + 1 > stock) {
+      showNotification('❌ Không đủ hàng!');
+      return;
+    }
+  }
+  item.quantity += change;
+  if (item.quantity <= 0) {
     window.removeFromCart(index);
   } else {
     setCurrentCart(cart);
@@ -359,10 +384,20 @@ function showCheckoutConfirm(type, address) {
 // ========== TẠO ĐƠN HÀNG - LƯU VÀO FIREBASE ==========
 window.createOrder = async function(type, address = null) {
   const cart = getCurrentCart();
-  
+
   if (cart.length === 0) {
     showNotification('❌ Giỏ hàng trống!');
     return;
+  }
+
+  // 🔥 CHECK TỒN KHO TRƯỚC KHI TẠO ĐƠN
+  for (const item of cart) {
+    const stock = quantities[item.id]?.quantity || 0;
+  
+    if (item.quantity > stock) {
+      showNotification(`❌ ${item.name} chỉ còn ${stock} sản phẩm!`);
+      return;
+    }
   }
   
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
