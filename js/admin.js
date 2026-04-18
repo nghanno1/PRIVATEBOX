@@ -55,9 +55,9 @@ function renderOrders() {
           <span class="order-type ${order.type === 'secure' ? 'secure' : 'normal'}">
             ${order.type === 'secure' ? '🔒 Bảo Mật' : '🛍️ Thường'}
           </span>
-        </div>
+        </div>        
         <div class="order-time">
-          <p>${new Date(order.timestamp).toLocaleString('vi-VN')}</p>
+          <p>${order.timestamp}</p>
         </div>
         <div>
           <label>
