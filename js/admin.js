@@ -127,7 +127,16 @@ function exportOrders() {
     csv += `${order.id},${order.type},${order.total},${order.timestamp},${address}\n`;
   });
   
-  const blob = new Blob([csv], { type: 'text/csv' });
+  /*const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `orders_${new Date().toISOString().split('T')[0]}.csv`;
+  a.click();*/
+  const blob = new Blob(['\uFEFF' + csv], { 
+    type: 'text/csv;charset=utf-8;' 
+  });
+  
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
